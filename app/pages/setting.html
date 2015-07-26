@@ -1,0 +1,64 @@
+<div flex-container="row" class="card p+">
+    <div flex-item="8">
+        <div flex-container="row">
+            <div flex-item="12">
+                <span class="tc-black-2 fs-headline display-block">
+                    <i class="icon icon--l icon--flat icon--green mdi mdi-settings"></i>
+                    Connection setting
+                </span>
+            </div>
+        </div>
+        <div flex-container="row" flex-gutter="24">
+            <div flex-item="6">
+                <lx-text-field label="Host">
+                    <input type="text" ng-model="config.his.host">
+                </lx-text-field>
+            </div>
+            <div flex-item="2">
+                <lx-text-field label="Port">
+                    <input type="number" ng-model="config.his.port">
+                </lx-text-field>
+            </div>
+            <div flex-item="4">
+                <lx-text-field label="Database">
+                    <input type="text" ng-model="config.his.database">
+                </lx-text-field>
+            </div>
+        </div>
+        <div flex-container="row" flex-gutter="24">
+            <div flex-item="6">
+                <lx-text-field label="Username">
+                    <input type="text" ng-model="config.his.user">
+                </lx-text-field>
+            </div>
+            <div flex-item="6">
+                <lx-text-field label="Password">
+                    <input type="password" ng-model="config.his.password">
+                </lx-text-field>
+            </div>
+        </div>
+        <div flex-container="row" flex-gutter="24">
+            <div flex-item="6">
+                <lx-text-field label="Cloud url">
+                    <input type="text" ng-model="config.cloud.url">
+                </lx-text-field>
+            </div>
+            <div flex-item="6">
+                <lx-text-field label="API Key">
+                    <input type="text" ng-model="config.cloud.key">
+                </lx-text-field>
+            </div>
+        </div>
+
+        <div flex-container="column" flex-align="space-between center">
+            <div flex-item>
+                <button class="btn btn--l btn--green btn--raised" lx-ripple ng-click="save()">
+                    Save
+                </button>
+                <a href="#/main" class="btn btn--l btn--grey btn--raised">
+                    Back to home
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

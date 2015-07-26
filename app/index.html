@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+ <html lang="en" ng-app="khos">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <title>KHOS Network: Patient EMR on the cloud</title>
+
+     <script src="./js/app.js"></script>
+     <script src="./js/config.js"></script>
+     <script src="./js/filter.js"></script>
+
+     <script src="./js/setting/SettingCtrl.js"></script>
+     <script src="./js/setting/SettingServ.js"></script>
+     <script src="./js/main/MainCtrl.js"></script>
+     <script src="./js/main/MainSrv.js"></script>
+     <script src="./js/export/ExportCtrl.js"></script>
+
+     <link rel="stylesheet" href="../vendor/lumx/dist/lumx.css">
+     <link rel="stylesheet" href="./css/style.css">
+ </head>
+ <body>
+     <div class="toolbar bgc-indigo-500">
+         <div class="toolbar__left mr">
+             <a ui-sref="main">
+               <i class="icon icon--l icon--white icon--flat mdi mdi-cloud"></i>
+             </a>
+         </div>
+         <span class="toolbar__label fs-headline tc-white">KHOS Network</span>
+         <div class="toolbar__right">
+             <button class="btn btn--l btn--white btn--icon" lx-ripple tooltip-position="bottom" lx-tooltip="ดูประวัติ EMR">
+                 <i class="mdi mdi-earth"></i>
+             </button>
+             <button class="btn btn--l btn--white btn--icon" lx-ripple tooltip-position="bottom" lx-tooltip="ทะเบียนผู้ป่วยโรคเรื้อรัง">
+                 <i class="mdi mdi-newspaper"></i>
+             </button>
+             <button class="btn btn--l btn--white btn--icon" lx-ripple tooltip-position="bottom" lx-tooltip="ทะเบียนรับส่ง LAB">
+                 <i class="mdi mdi-beaker-outline"></i>
+             </button>
+
+             <lx-dropdown position="right" over-toggle="true">
+                <button class="btn btn--white btn--l btn--icon" lx-ripple lx-dropdown-toggle>
+                    <i class="mdi mdi-dots-vertical"></i>
+                </button>
+                <lx-dropdown-menu>
+                    <ul>
+                        <li>
+                            <a href="#" class="dropdown-link dropdown-link--is-header">Tools</a>
+                        </li>
+                        <li>
+                            <a href="#/exports" class="dropdown-link">
+                                <i class="mdi mdi-backup-restore"></i>
+                                ส่งออกข้อมูล
+                            </a>
+                        </li>
+                        <li class="dropdown-divider"></li>
+                        <li>
+                            <a href="#/setting" class="dropdown-link">
+                                <i class="mdi mdi-settings"></i>
+                                กำหนดค่าการเชื่อมต่อ
+                            </a>
+                        </li>
+                        <li class="dropdown-divider"></li>
+                        <li>
+                            <a href="#/setting" class="dropdown-link">
+                                <i class="mdi mdi-logout"></i>
+                                ออกจากโปรแกรม
+                            </a>
+                        </li>
+
+                     </ul>
+                </lx-dropdown-menu>
+
+             </lx-dropdown>
+
+         </div>
+     </div> <!--/toolbar -->
+
+    <div class="container">
+        <ui-view></ui-view>
+    </div>
+
+ </body>
+ </html>

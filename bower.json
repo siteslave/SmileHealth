@@ -1,0 +1,19 @@
+{
+  "name": "SmileHealth",
+  "version": "0.0.1",
+  "authors": [
+    "Satit Rianpit <rianpit@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lumx": "~0.3.71"
+  }
+}

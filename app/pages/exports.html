@@ -1,0 +1,104 @@
+<div class="card p+">
+  <i class="icon icon--l icon--green icon--flat mdi mdi-google-circles-group"></i>
+  <span class="fs-headline tc-grey-500">ส่งออกข้อมูล (Export data)</span>
+  <br>
+  <div flex-container="row" flex-gutter="8">
+    <div flex-item="3">
+      <lx-date-picker model="endDate" label="ตั้งแต่" fixed-label="true" icon="calendar" locale="th"></lx-date-picker>
+    </div>
+    <div flex-item="3">
+      <lx-date-picker model="startDate" label="ถึง" fixed-label="true" icon="calendar" locale="th"></lx-date-picker>
+    </div>
+    <div flex-item="2">
+      <button class="btn btn--l btn--raised btn--blue" lx-ripple>
+        ส่งออกข้อมูล
+      </button>
+    </div>
+  </div>
+</div>
+<div class="padding-bottom-8"></div>
+<div flex-container="row", flex-gutter="8">
+
+  <div flex-item="6">
+    <div class="card p+">
+      <div class="data-table-container">
+        <header class="data-table-header">
+          <div class="data-table-header__label">
+            <span class="fs-title"> สถานะส่งออก </span>
+          </div>
+          <div class="data-table-header__actions">
+            <button class="btn btn--l btn--green btn--raised" lx-ripple>
+              ส่งไฟล์
+            </button>
+          </div>
+        </header>
+
+        <table class="data-table">
+          <thead>
+          <tr class="data-table__selectable-row">
+            <th></th>
+            <th width="80%">ชื่อไฟล์</th>
+            <th width="20%">จำนวนเรคคอร์ด</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-if="items.length == 0 || !items"><td colspan="4"><p class="p+">ไม่พบรายการ</p></td></tr>
+          <tr ng-if="items.length > 0" ng-repeat="item in items | filter: query">
+            <td>
+              <i ng-if="$index%2 == 0" class="icon icon--m icon--green icon--flat mdi mdi-account-circle"></i>
+              <i ng-if="$index%2 != 0" class="icon icon--m icon--grey icon--flat mdi mdi-account-circle"></i>
+            </td>
+            <td width="80%">{{item.vstdate | toThaiDate}}</td>
+            <!--<td>{{item.cid}}</td>-->
+            <td width="20%">{{item.hn}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div flex-item="6">
+    <!-- send history -->
+    <div class="card p+">
+      <div class="data-table-container">
+        <header class="data-table-header">
+          <div class="data-table-header__label">
+            <span class="fs-title"> ประวัติการส่งออก </span>
+          </div>
+          <div class="data-table-header__actions">
+            <!-- <button class="btn btn--l btn--grey btn--icon" lx-ripple>
+              <i class="mdi mdi-help-circle"></i>
+            </button> -->
+          </div>
+        </header>
+
+        <table class="data-table">
+          <thead>
+          <tr class="data-table__selectable-row">
+            <th></th>
+            <th width="20%">วันที่</th>
+            <th width="70%">ชื่อไฟล์</th>
+            <th width="10%">สถานะ</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-if="items.length == 0 || !items"><td colspan="4"><p class="p+">ไม่พบรายการ</p></td></tr>
+          <tr ng-if="items.length > 0" ng-repeat="item in items | filter: query">
+            <td>
+              <i ng-if="$index%2 == 0" class="icon icon--m icon--green icon--flat mdi mdi-account-circle"></i>
+              <i ng-if="$index%2 != 0" class="icon icon--m icon--grey icon--flat mdi mdi-account-circle"></i>
+            </td>
+            <td width="20%">{{item.vstdate | toThaiDate}}</td>
+            <!--<td>{{item.cid}}</td>-->
+            <td width="70%">{{item.hn}}</td>
+            <td width="10%">{{item.pname + item.fname}} {{ item.lname }} </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+</div>

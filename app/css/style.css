@@ -1,0 +1,41 @@
+html {
+    font-size: 1em;
+    line-height: 1.1;
+}
+.data-table > tbody > tr > td {
+    height: 13px;
+    padding: 2px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto
+}
+
+.padding-bottom-8 {
+  padding-bottom: 8px;
+}
+
+@media (min-width:768px) {
+    .container {
+        width: 750px
+    }
+}
+
+@media (min-width:992px) {
+    .container {
+        width: 970px
+    }
+}
+
+@media (min-width:1200px) {
+    .container {
+        width: 1170px
+    }
+}

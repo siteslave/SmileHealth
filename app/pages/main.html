@@ -1,0 +1,81 @@
+<div class="card p+">
+
+  <div flex-container="row">
+    <div id="progress"></div>
+  </div>
+  <div class="data-table-container">
+    <header class="data-table-header">
+      <div class="data-table-header__label">
+        <i class="icon icon--m icon--grey icon--flat mdi mdi-account-multiple"></i> &nbsp;
+        <span class="fs-title">ผู้มารับบริการ [{{ items.length | number }}]</span>
+      </div>
+      <div class="data-table-header__actions" style="width: 300px;">
+        <div flex-container="row" flex-gutter="8">
+          <div flex-item="10">
+            <lx-date-picker model="serviceDate" label="วันที่รับบริการ" fixed-label="true" icon="calendar" locale="th"></lx-date-picker>
+          </div>
+          <div flex-item="2">
+            <button class="btn btn--l btn--icon btn--grey" ng-click="getList()">
+              <i class="mdi mdi-magnify"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <table class="data-table">
+      <thead>
+      <tr class="data-table__selectable-row">
+        <th></th>
+        <th width="10%">วันที่</th>
+        <!--<th>เลขบัตรประชาชน</th>-->
+        <th width="10%">HN</th>
+        <th width="20%">ชื่อ-สกุล</th>
+        <th width="20%">สิทธิ์การรักษา</th>
+        <!-- <th>สิทธิ์การรักาษ</th> -->
+        <th width="35%">ผลการวินิจฉัย</th>
+        <th width="5%" style="text-align: center;">#</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-if="items.length == 0 || !items"><td colspan="6"><p class="p+">ไม่พบรายการ</p></td></tr>
+      <tr ng-if="items.length > 0" ng-repeat="item in items | filter: query">
+        <td>
+          <i ng-if="$index % 2 == 0" class="icon icon--m icon--green icon--flat mdi mdi-account-circle"></i>
+          <i ng-if="$index % 2 != 0" class="icon icon--m icon--grey icon--flat mdi mdi-account-circle"></i>
+        </td>
+        <td width="10%">{{item.vstdate | toThaiDate}}</td>
+        <!--<td>{{item.cid}}</td>-->
+        <td width="10%">{{item.hn}}</td>
+        <td width="20%">{{item.pname + item.fname}} {{ item.lname }} </td>
+        <td width="20%">{{item.pttype_name | toShortString: 40}}</td>
+        <td width="35%">{{item.main_pdx}} - {{item.pdx_name | toShortString: 50 }}</td>
+        <td width="5%" style="text-align: center;">
+          <lx-dropdown position="right" from-top>
+            <button class="btn btn--l btn--grey btn--icon" lx-ripple lx-dropdown-toggle>
+              <i class="mdi mdi-dots-vertical"></i>
+            </button>
+            <lx-dropdown-menu>
+              <ul>
+                <li>
+                  <a href="#" class="dropdown-link">
+                    <i class="mdi mdi-clipboard-account"></i>
+                    ประวัติรับบริการ (EMR)
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="dropdown-link">
+                    <i class="mdi mdi-beaker-outline"></i>
+                    ส่ง/บันทึกผล LAB
+                  </a>
+                </li>
+              </ul>
+            </lx-dropdown-menu>
+          </lx-dropdown>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
