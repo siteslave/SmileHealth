@@ -3,14 +3,27 @@
   <div flex-container="row">
     <div id="progress"></div>
   </div>
+  <i class="icon icon--m icon--green icon--flat mdi mdi-account-multiple"></i> &nbsp;
+  <span class="fs-title tc-grey">ทะเบียนผู้มารับบริการ [{{ items.length | number }}]</span>
+  <div class="divider divider--dark"></div>
+
   <div class="data-table-container">
     <header class="data-table-header">
       <div class="data-table-header__label">
-        <i class="icon icon--m icon--grey icon--flat mdi mdi-account-multiple"></i> &nbsp;
-        <span class="fs-title">ผู้มารับบริการ [{{ items.length | number }}]</span>
+        <div flex-container="row">
+          <!-- <div flex-item="4">
+            <i class="icon icon--m icon--grey icon--flat mdi mdi-account-multiple"></i> &nbsp;
+            <span class="fs-title">ผู้มารับบริการ [{{ items.length | number }}]</span>
+          </div> -->
+          <div flex-item="7">
+            <lx-text-field label="ค้นหา" fixed-label="true" icon="magnify">
+              <input type="text" ng-model="query" placeholder="ค้นหา...">
+            </lx-text-field>
+          </div>
+        </div>
       </div>
       <div class="data-table-header__actions" style="width: 300px;">
-        <div flex-container="row" flex-gutter="8">
+        <div flex-container="row" flex-gutter="12">
           <div flex-item="10">
             <lx-date-picker model="serviceDate" label="วันที่รับบริการ" fixed-label="true" icon="calendar" locale="th"></lx-date-picker>
           </div>
@@ -19,6 +32,17 @@
               <i class="mdi mdi-magnify"></i>
             </button>
           </div>
+          <!-- <div flex-item="6">
+            <lx-select ng-model="selects.selectedClinic" placeholder="เลือกแผนกรับบริการ" choices="clinics" floating-label="false">
+              <lx-select-selected>
+                  {{ $selected.name }}
+              </lx-select-selected>
+
+              <lx-select-choices>
+                  {{ $choice.name }}
+              </lx-select-choices>
+            </lx-select>
+          </div> -->
         </div>
       </div>
     </header>
@@ -67,6 +91,13 @@
                   <a href="#" class="dropdown-link">
                     <i class="mdi mdi-beaker-outline"></i>
                     ส่ง/บันทึกผล LAB
+                  </a>
+                </li>
+                <li class="dropdown-divider"></li>
+                <li>
+                  <a href="#" class="dropdown-link">
+                    <i class="mdi mdi-comment-processing-outline"></i>
+                    ข้อมูลเวชระเบียน
                   </a>
                 </li>
               </ul>
