@@ -1,16 +1,20 @@
+<div flex-container="row">
+  <div id="progress"></div>
+</div>
+
 <div class="card p+">
   <i class="icon icon--l icon--green icon--flat mdi mdi-google-circles-group"></i>
   <span class="fs-headline tc-grey-500">ส่งออกข้อมูล (Export data)</span>
   <br>
   <div flex-container="row" flex-gutter="8">
     <div flex-item="3">
-      <lx-date-picker model="endDate" label="ตั้งแต่" fixed-label="true" icon="calendar" locale="th"></lx-date-picker>
+      <lx-date-picker model="startDate" label="ตั้งแต่" fixed-label="true" icon="calendar" locale="th"></lx-date-picker>
     </div>
     <div flex-item="3">
-      <lx-date-picker model="startDate" label="ถึง" fixed-label="true" icon="calendar" locale="th"></lx-date-picker>
+      <lx-date-picker model="endDate" label="ถึง" fixed-label="true" icon="calendar" locale="th"></lx-date-picker>
     </div>
     <div flex-item="2">
-      <button class="btn btn--l btn--raised btn--blue" lx-ripple>
+      <button class="btn btn--l btn--raised btn--blue" lx-ripple ng-click="doExport()">
         ส่งออกข้อมูล
       </button>
     </div>

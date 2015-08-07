@@ -24,6 +24,13 @@ app.on('ready', function() {
     center: true,
     fullscreen: false
   });
+
+  ipc.on('get-home-dir', function (event) {
+    var homeDirecotry = app.getPath('home'),
+      appHome = path.join(homeDirecotry, '.khos');
+    // Return configure path
+    event.returnValue = appHome;
+  });
   /*
   * Get configuration file path
   */

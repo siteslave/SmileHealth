@@ -2,6 +2,10 @@
 
 // Remote function
 var ipc = require('ipc');
+var _ = require('lodash');
+var fs = require('fs');
+var path = require('path');
+var fse = require('fs-extra');
 
 // Libraries dependencies
 global.$ = global.jQuery = require('jquery');
