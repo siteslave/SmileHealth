@@ -136,6 +136,46 @@
               });
 
             return q.promise;
+          },
+
+          getProced: function (vn) {
+            var q = $q.defer();
+
+            db('doctor_operation as o')
+              .select(
+                'v.hn as HN', 'o.vn as SEQ', 'o.icd9 as PROCED', 'o.price as PRICE'
+              )
+              .innerJoin('ovst as v', 'v.vn', 'o.vn')
+              .whereIn('o.vn', vn)
+              .then(function (rows) {
+                q.resolve(rows);
+              })
+              .catch(function (err) {
+                q.reject(err);
+              });
+
+            return q.promise;
+          },
+
+          getCharge: function (vn) {
+            var q = $q.defer();
+
+            db('opitemrece as o')
+              .select(
+                'o.hn as HN', 'o.vn as SEQ', 'o.icode as CHARGE_CODE', 'd.name as CHARGE_NAME',
+                'o.qty as QTY', 'o.unitprice as PRICE'
+              )
+              .innerJoin('nondrugitems as d', 'd.icode', 'o.icode')
+              .whereRaw('o.income <> "03"')
+              .whereIn('o.vn', vn)
+              .then(function (rows) {
+                q.resolve(rows);
+              })
+              .catch(function (err) {
+                q.reject(err);
+              });
+
+            return q.promise;
           }
         }
     });

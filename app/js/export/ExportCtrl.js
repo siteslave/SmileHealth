@@ -7,12 +7,10 @@
       var homeDir = ipc.sendSync('get-home-dir');
       console.log(homeDir);
       var exportDir = path.join(homeDir, 'export');
+      var zipDir = path.join(homeDir, 'zip');
       // Check or create extract directory
-      fs.access(exportDir, fs.W_OK, function (err) {
-        if (err) {
-          fse.ensureDirSync(exportDir);
-        }
-      });
+      fse.ensureDirSync(exportDir);
+      fse.ensureDirSync(zipDir);
 
       // disabled button
       $scope.isSuccess = true;
@@ -54,18 +52,30 @@
           'HOSPCODE', 'HN', 'SEQ', 'DIAG_CODE', 'DIAG_TYPE', 'D_UPDATED'
         ].join('|') + '\n';
 
+        headers.proced = [
+          'HOSPCODE', 'HN', 'SEQ', 'PROCED', 'PRICE', 'D_UPDATED'
+        ].join('|') + '\n';
+
+        headers.charge = [
+          'HOSPCODE', 'HN', 'SEQ', 'CHARGE_CODE', 'CHARGE_NAME', 'QTY', 'PRICE', 'D_UPDATED'
+        ].join('|') + '\n';
+
        var files = [];
        files.service = path.join(exportDir, 'service.txt');
        files.person = path.join(exportDir, 'person.txt');
        files.drug = path.join(exportDir, 'drug.txt');
        files.lab = path.join(exportDir, 'lab.txt');
        files.diag = path.join(exportDir, 'diag.txt');
+       files.proced = path.join(exportDir, 'proced.txt');
+       files.charge = path.join(exportDir, 'charge.txt');
        // Create header
        fs.writeFileSync(files.service, headers.service);
        fs.writeFileSync(files.person, headers.person);
        fs.writeFileSync(files.drug, headers.drug);
        fs.writeFileSync(files.lab, headers.lab);
        fs.writeFileSync(files.diag, headers.diag);
+       fs.writeFileSync(files.proced, headers.proced);
+       fs.writeFileSync(files.charge, headers.charge);
 
         var promise = ExportServ.getHospcode()
           .then(function (hospcode) {
@@ -206,7 +216,6 @@
            }
           })
           .then(function (rows) {
-            console.log(rows);
             if (rows.length) {
               $scope.files.push({name: 'DIAG', total: rows.length, current: 0});
               var idx = _.findIndex($scope.files, {name: 'DIAG'});
@@ -227,13 +236,95 @@
                 fs.appendFileSync(files.diag, str);
                 $scope.files[idx].current++;
              });
+
+             return ExportServ.getProced($scope.seq);
+           }
+          })
+          .then(function (rows) {
+            if (rows.length) {
+              $scope.files.push({name: 'PROCED', total: rows.length, current: 0});
+              var idx = _.findIndex($scope.files, {name: 'PROCED'});
+
+              _.forEach(rows, function (v) {
+                var obj = {};
+                obj.HOSPCODE = $scope.hospcode;
+                obj.HN = v.HN;
+                obj.SEQ = v.SEQ;
+                obj.PROCED = v.PROCED;
+                obj.PRICE = v.PRICE;
+                obj.UPDATED = moment().format('YYYYMMDDHHmmss')
+
+                var str = [
+                  obj.HOSPCODE, obj.HN, obj.SEQ, obj.PROCED, obj.PRICE, obj.UPDATED
+                ].join('|') + '\n';
+
+                fs.appendFileSync(files.proced, str);
+                $scope.files[idx].current++;
+             });
+
+             return ExportServ.getCharge($scope.seq);
+           }
+          })
+          .then(function (rows) {
+            if (rows.length) {
+              $scope.files.push({name: 'CHARGE', total: rows.length, current: 0});
+              var idx = _.findIndex($scope.files, {name: 'CHARGE'});
+
+              _.forEach(rows, function (v) {
+                var obj = {};
+                obj.HOSPCODE = $scope.hospcode;
+                obj.HN = v.HN;
+                obj.SEQ = v.SEQ;
+                obj.CHARGE_CODE = v.CHARGE_CODE;
+                obj.CHARGE_NAME = v.CHARGE_NAME;
+                obj.QTY = v.QTY;
+                obj.PRICE = v.PRICE;
+                obj.UPDATED = moment().format('YYYYMMDDHHmmss')
+
+                var str = [
+                  obj.HOSPCODE, obj.HN, obj.SEQ, obj.CHARGE_CODE, obj.CHARGE_NAME,
+                  obj.QTY, obj.PRICE, obj.UPDATED
+                ].join('|') + '\n';
+
+                fs.appendFileSync(files.charge, str);
+                $scope.files[idx].current++;
+             });
+
+             return;
            }
           })
 
-          .then(function (person) {
+          .then(function () {
+
+            var strZipFile = 'KHOS' + $scope.hospcode + '-' + moment().format('YYYYMMDDHHmmss') + '.zip';
+            var zipFile = path.join(zipDir, strZipFile);
+
+            //return ExportServ.createZip(files, zipFile);
+
             LxProgressService.linear.hide();
-            LxNotificationService.success('ส่งออกข้อมูลเสร็จเรียบร้อยแล้ว');
             $scope.isSuccess = true;
+
+            var JSZip = require('jszip');
+            var zip = new JSZip();
+
+            zip.file('person.txt', fs.readFileSync(files.person));
+            zip.file('service.txt', fs.readFileSync(files.service));
+            zip.file('diag.txt', fs.readFileSync(files.diag));
+            zip.file('drug.txt', fs.readFileSync(files.drug));
+            zip.file('proced.txt', fs.readFileSync(files.proced));
+            zip.file('charge.txt', fs.readFileSync(files.charge));
+            zip.file('lab.txt', fs.readFileSync(files.lab));
+
+            var buffer = zip.generate({type: "nodebuffer"});
+            fs.writeFile(zipFile, buffer, function (err) {
+              if (err) {
+                console.log(err);
+              } else {
+
+                LxNotificationService.success('ส่งออกข้อมูลเสร็จเรียบร้อยแล้ว');
+              }
+            });
+
           }, function (err) {
             console.log(err);
             $scope.isSuccess = true;

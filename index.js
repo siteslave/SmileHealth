@@ -27,7 +27,7 @@ app.on('ready', function() {
 
   ipc.on('get-home-dir', function (event) {
     var homeDirecotry = app.getPath('home'),
-      appHome = path.join(homeDirecotry, '.khos');
+      appHome = path.join(homeDirecotry, 'khos');
     // Return configure path
     event.returnValue = appHome;
   });
@@ -37,7 +37,7 @@ app.on('ready', function() {
   ipc.on('get-config-file', function (event) {
     //console.log(app.getPath('home'));
     var homeDirecotry = app.getPath('home'),
-      appDir = path.join(homeDirecotry, '.khos'),
+      appDir = path.join(homeDirecotry, 'khos'),
       configFile = path.join(appDir, 'config.json');
     // Return configure path
     event.returnValue = configFile;
@@ -47,7 +47,7 @@ app.on('ready', function() {
   */
   ipc.on('get-config', function (event) {
     var homeDirecotry = app.getPath('home'),
-      appDir = path.join(homeDirecotry, '.khos'),
+      appDir = path.join(homeDirecotry, 'khos'),
       configFile = path.join(appDir, 'config.json');
     //Create app directory
     fse.mkdirsSync(appDir);
