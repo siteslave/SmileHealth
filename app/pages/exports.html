@@ -1,5 +1,7 @@
 <div flex-container="row">
-  <div id="progress"></div>
+  <div flex-item>
+    <div id="progress"></div>
+  </div>
 </div>
 
 <div class="card p+">
@@ -14,7 +16,7 @@
       <lx-date-picker model="endDate" label="ถึง" fixed-label="true" icon="calendar" locale="th"></lx-date-picker>
     </div>
     <div flex-item="2">
-      <button class="btn btn--l btn--raised btn--blue" lx-ripple ng-click="doExport()">
+      <button ng-disabled="!isSuccess" class="btn btn--l btn--raised btn--blue" lx-ripple ng-click="doExport()">
         ส่งออกข้อมูล
       </button>
     </div>
@@ -41,20 +43,19 @@
           <thead>
           <tr class="data-table__selectable-row">
             <th></th>
-            <th width="80%">ชื่อไฟล์</th>
-            <th width="20%">จำนวนเรคคอร์ด</th>
+            <th width="70%">ชื่อไฟล์</th>
+            <th width="30%" style="text-align: right">จำนวนเรคคอร์ด</th>
           </tr>
           </thead>
           <tbody>
-          <tr ng-if="items.length == 0 || !items"><td colspan="4"><p class="p+">ไม่พบรายการ</p></td></tr>
-          <tr ng-if="items.length > 0" ng-repeat="item in items | filter: query">
+          <tr ng-if="files.length == 0 || !files"><td colspan="4"><p class="p+">ไม่พบรายการ</p></td></tr>
+          <tr ng-if="files.length > 0" ng-repeat="file in files">
             <td>
-              <i ng-if="$index%2 == 0" class="icon icon--m icon--green icon--flat mdi mdi-account-circle"></i>
-              <i ng-if="$index%2 != 0" class="icon icon--m icon--grey icon--flat mdi mdi-account-circle"></i>
+              <i class="icon icon--s icon--grey icon--flat mdi mdi-check"></i>
             </td>
-            <td width="80%">{{item.vstdate | toThaiDate}}</td>
+            <td width="70%">{{file.name}}</td>
             <!--<td>{{item.cid}}</td>-->
-            <td width="20%">{{item.hn}}</td>
+            <td width="30%" style="text-align: right">{{file.total | number}} / {{file.current | number}}</td>
           </tr>
           </tbody>
         </table>
@@ -82,8 +83,8 @@
           <tr class="data-table__selectable-row">
             <th></th>
             <th width="20%">วันที่</th>
-            <th width="70%">ชื่อไฟล์</th>
-            <th width="10%">สถานะ</th>
+            <th width="60%">ชื่อไฟล์</th>
+            <th width="20%">สถานะ</th>
           </tr>
           </thead>
           <tbody>
@@ -95,8 +96,8 @@
             </td>
             <td width="20%">{{item.vstdate | toThaiDate}}</td>
             <!--<td>{{item.cid}}</td>-->
-            <td width="70%">{{item.hn}}</td>
-            <td width="10%">{{item.pname + item.fname}} {{ item.lname }} </td>
+            <td width="60%">{{item.hn}}</td>
+            <td width="20%">{{item.pname + item.fname}} {{ item.lname }} </td>
           </tr>
           </tbody>
         </table>

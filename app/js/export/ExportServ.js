@@ -76,6 +76,66 @@
               });
 
             return q.promise;
+          },
+
+          getDrug: function (vn) {
+            var q = $q.defer();
+            db('opitemrece as o')
+              .select(
+                'o.hn as HN', 'o.vn as SEQ', 'o.icode as ICODE', 'o.qty as QTY',
+                'o.unitprice as PRICE', 'd.name as DRUG_NAME', 'd.units as UNIT',
+                'd.did as STDCODE', 'ds.code as USAGE'
+              )
+              .innerJoin('drugitems as d', 'd.icode', 'o.icode')
+              .leftJoin('drugusage as ds', 'ds.drugusage', 'o.drugusage')
+              .where('o.income', '03')
+              .whereIn('o.vn', vn)
+              .then(function (rows) {
+                q.resolve(rows);
+              })
+              .catch(function (err) {
+                q.reject(err);
+              });
+
+            return q.promise;
+          },
+
+          getLab: function (vn) {
+            var q = $q.defer();
+            db('lab_head as lh')
+              .select(
+                'lh.hn as HN', 'lh.vn as SEQ', 'li.lab_items_name as LNAME',
+                'lo.lab_order_result AS LRESULT',  'li.lab_items_unit as LUNIT'
+              )
+              .innerJoin('lab_order as lo', 'lo.lab_order_number', 'lh.lab_order_number')
+              .innerJoin('lab_items as li', 'li.lab_items_code', 'lo.lab_items_code')
+              .whereRaw('length(lo.lab_order_result) > 0')
+              .whereIn('lh.vn', vn)
+              .then(function (rows) {
+                q.resolve(rows);
+              })
+              .catch(function (err) {
+                q.reject(err);
+              });
+
+            return q.promise;
+          },
+
+          getDiag: function (vn) {
+            var q = $q.defer();
+            db('ovstdiag as od')
+              .select(
+                'od.hn as HN', 'od.vn AS SEQ', 'od.icd10 AS DIAG_CODE', 'od.diagtype AS DIAG_TYPE'
+              )
+              .whereIn('od.vn', vn)
+              .then(function (rows) {
+                q.resolve(rows);
+              })
+              .catch(function (err) {
+                q.reject(err);
+              });
+
+            return q.promise;
           }
         }
     });
