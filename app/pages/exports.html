@@ -33,9 +33,7 @@
             <span class="fs-title"> สถานะส่งออก </span>
           </div>
           <div class="data-table-header__actions">
-            <button class="btn btn--l btn--green btn--raised" lx-ripple>
-              ส่งไฟล์
-            </button>
+
           </div>
         </header>
 
@@ -51,7 +49,8 @@
           <tr ng-if="files.length == 0 || !files"><td colspan="4"><p class="p+">ไม่พบรายการ</p></td></tr>
           <tr ng-if="files.length > 0" ng-repeat="file in files">
             <td>
-              <i class="icon icon--s icon--grey icon--flat mdi mdi-check"></i>
+              <i ng-if="!file.success" class="icon icon--s icon--grey icon--flat mdi mdi-minus"></i>
+              <i ng-if="file.success" class="icon icon--s icon--green icon--flat mdi mdi-check"></i>
             </td>
             <td width="70%">{{file.name}}</td>
             <!--<td>{{item.cid}}</td>-->
@@ -69,7 +68,7 @@
       <div class="data-table-container">
         <header class="data-table-header">
           <div class="data-table-header__label">
-            <span class="fs-title"> ประวัติการส่งออก </span>
+            <span class="fs-title"> ไฟล์ที่รอส่ง </span>
           </div>
           <div class="data-table-header__actions">
             <!-- <button class="btn btn--l btn--grey btn--icon" lx-ripple>
@@ -82,22 +81,25 @@
           <thead>
           <tr class="data-table__selectable-row">
             <th></th>
-            <th width="20%">วันที่</th>
-            <th width="60%">ชื่อไฟล์</th>
-            <th width="20%">สถานะ</th>
+            <th width="70%">ชื่อไฟล์</th>
+            <th width="30%">ส่ง</th>
           </tr>
           </thead>
           <tbody>
-          <tr ng-if="items.length == 0 || !items"><td colspan="4"><p class="p+">ไม่พบรายการ</p></td></tr>
-          <tr ng-if="items.length > 0" ng-repeat="item in items | filter: query">
+          <tr ng-if="waitingFiles.length == 0 || !waitingFiles"><td colspan="4"><p class="p+">ไม่พบรายการ</p></td></tr>
+          <tr ng-if="waitingFiles.length > 0" ng-repeat="f in waitingFiles">
             <td>
-              <i ng-if="$index%2 == 0" class="icon icon--m icon--green icon--flat mdi mdi-account-circle"></i>
-              <i ng-if="$index%2 != 0" class="icon icon--m icon--grey icon--flat mdi mdi-account-circle"></i>
+              <i class="icon icon--m icon--grey icon--flat mdi mdi-file"></i>
             </td>
-            <td width="20%">{{item.vstdate | toThaiDate}}</td>
-            <!--<td>{{item.cid}}</td>-->
-            <td width="60%">{{item.hn}}</td>
-            <td width="20%">{{item.pname + item.fname}} {{ item.lname }} </td>
+            <td width="70%">{{f}}</td>
+            <td width="30%">
+              <button class="btn btn--m btn--grey btn--icon" lx-ripple>
+                <i class="icon icon--m icon--flat mdi mdi-close-circle"></i>
+              </button>
+              <button class="btn btn--m btn--green btn--icon" lx-ripple>
+                <i class="icon icon--m icon--flat mdi mdi-arrow-up-bold-circle"></i>
+              </button>
+            </td>
           </tr>
           </tbody>
         </table>
