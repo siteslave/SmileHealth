@@ -23,7 +23,8 @@ angular.module('khos', [
   'app.filter',
   'app.controller.SettingCtrl',
   'app.controller.Main',
-  'app.controller.ExportCtrl'
+  'app.controller.ExportCtrl',
+  'app.controller.EmrCtrl'
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
   // Default routing
@@ -35,6 +36,12 @@ angular.module('khos', [
       templateUrl: './pages/main.html',
       controller: 'MainCtrl'
     })
+    .state('emr', {
+      url: '/emr/:cid',
+      templateUrl: './pages/emr.html',
+      controller: 'EmrCtrl'
+    })
+
     .state('setting', {
       url: '/setting',
       templateUrl: './pages/setting.html',

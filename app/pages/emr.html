@@ -1,0 +1,192 @@
+<div>
+
+  <div flex-container="row">
+    <div id="progress"></div>
+  </div>
+
+  <div flex-container="row", flex-gutter="8">
+    <div flex-item="3">
+      <div class="card p+">
+        <i class="icon icon--m icon--grey icon--flat mdi mdi-calendar-clock"></i> &nbsp;
+        <span class="fs-title tc-grey">ประวัติการรับบริการ</span>
+        <div class="divider divider--dark"></div>
+
+        <ul class="list mt++">
+          <li class="list-row list-row--has-separator">
+            <div class="list-row__content">
+              <span class="display-block">12/08/2557 13:00</span>
+              <span class="display-block fs-body-1 tc-black-2">
+                โรงพยาบาลมหาสารคาม (10707)
+              </span>
+            </div>
+            <div class="list-row__secondary">
+              <button class="btn btn--green btn--icon btn--l" lx-ripple>
+                <i class="mdi mdi-monitor"></i>
+              </button>
+            </div>
+          </li>
+          <li class="list-row list-row--has-separator">
+            <div class="list-row__content">
+              <span class="display-block">12/08/2557 13:00</span>
+              <span class="display-block fs-body-1 tc-black-2">
+                โรงพยาบาลกันทรวิชัย (11053)
+              </span>
+            </div>
+            <div class="list-row__secondary">
+              <button class="btn btn--grey btn--icon btn--l" lx-ripple>
+                <i class="mdi mdi-chevron-double-right"></i>
+              </button>
+            </div>
+          </li>
+          <li class="list-row list-row--has-separator">
+            <div class="list-row__content">
+              <span class="display-block">13/08/2557 10:30</span>
+              <span class="display-block fs-body-1 tc-black-2">
+                รพ.สต.เชียงเหียน (04911)
+              </span>
+            </div>
+            <div class="list-row__secondary">
+              <button class="btn btn--grey btn--icon btn--l" lx-ripple>
+                <i class="mdi mdi-chevron-double-right"></i>
+              </button>
+            </div>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+    <div flex-item="9">
+      <div flex-container="row" style="padding-bottom: 8px;">
+        <div flex-item>
+          <div class="card p+">
+            <i class="icon icon--m icon--grey icon--flat mdi mdi-account-location"></i> &nbsp;
+            <span class="fs-title tc-grey">ข้อมูลทั่วไป</span>
+            <div class="divider divider--dark"></div>
+
+            <div flex-container="row" flex-gutter="24">
+              <div flex-item="5">
+                <lx-text-field label="ชื่อ-สกุล">
+                  <input type="text" ng-model="fullname" ng-disabled="true">
+                </lx-text-field>
+              </div>
+              <div flex-item="3">
+                <lx-text-field label="วันเกิด">
+                  <input type="text" ng-model="birth" ng-disabled="true">
+                </lx-text-field>
+              </div>
+              <div flex-item="2">
+                <lx-text-field label="อายุ (ปี)">
+                  <input type="text" ng-model="age" ng-disabled="true">
+                </lx-text-field>
+              </div>
+              <div flex-item="2">
+                <lx-text-field label="เพศ">
+                  <input type="text" ng-model="sex" ng-disabled="true">
+                </lx-text-field>
+              </div>
+            </div>
+
+            <div flex-container="row">
+              <div flex-item>
+                <lx-text-field label="ที่อยู่">
+                  <input type="text" ng-model="address" ng-disabled="true">
+                </lx-text-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div flex-container="row">
+        <div flex-item>
+          <div class="card p+">
+            <i class="icon icon--m icon--grey icon--flat mdi mdi-comment-plus-outline"></i> &nbsp;
+            <span class="fs-title tc-grey">ข้อมูลการรับบริการ</span>
+            <div class="divider divider--dark"></div>
+
+            <br>
+            <div flex-container="row" flex-gutter="8">
+              <div flex-item="3">
+                <lx-text-field label="รหัส">
+                  <input type="text" ng-model="hospcode" ng-disabled="true">
+                </lx-text-field>
+              </div>
+              <div flex-item="9">
+                <lx-text-field label="ชื่อหน่วยบริการ">
+                  <input type="text" ng-model="hospname" ng-disabled="true">
+                </lx-text-field>
+              </div>
+            </div>
+            <div flex-container="row" flex-gutter="8">
+              <div flex-item="6">
+                <lx-text-field label="มาด้วยอาการ">
+                  <input type="text" ng-model="cc" ng-disabled="true">
+                </lx-text-field>
+              </div>
+              <div flex-item="2">
+                <lx-text-field label="น้ำหนัก(กก.)">
+                  <input type="text" ng-model="weight" ng-disabled="true">
+                </lx-text-field>
+              </div>
+              <div flex-item="2">
+                <lx-text-field label="ส่วนสูง(ซม.)">
+                  <input type="text" ng-model="height" ng-disabled="true">
+                </lx-text-field>
+              </div>
+              <div flex-item="2">
+                <lx-text-field label="ความดัน">
+                  <input type="text" ng-model="bp" ng-disabled="true">
+                </lx-text-field>
+              </div>
+            </div>
+            <br>
+            <i class="icon icon--m icon--grey icon--flat mdi mdi-monitor"></i> &nbsp;
+            <span class="fs-title tc-grey">กิจกรรมการบริการ</span>
+            <div class="divider divider--dark"></div>
+
+            <!-- tabs -->
+            <lx-tabs indicator="indigo-500" layout="inline">
+              <lx-tab heading="การวินิจฉัย">
+                <table class="data-table">
+                  <thead>
+                    <tr class="data-table__selectable-row">
+                      <th></th>
+                      <th width="10%">รหัส</th>
+                      <th width="60%">รายการ</th>
+                      <th width="30%">Type</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <i class="icon icon--m icon--grey icon--flat mdi mdi-chevron-right"></i>
+                      </td>
+                      <td width="10%">I10</td>
+                      <td width="60%">Essential (primary) hypertension</td>
+                      <td width="30%">
+                        1 - Principle diagnosis
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </lx-tab>
+              <lx-tab heading="หัตถการ">
+                <p class="p+">หัตถการ</p>
+              </lx-tab>
+              <lx-tab heading="เวชภัณฑ์">
+                <p class="p+">เวชภัณฑ์</p>
+              </lx-tab>
+              <lx-tab heading="Lab">
+                <p class="p+">LAB</p>
+              </lx-tab>
+              <lx-tab heading="ค่าใช้จ่าย">
+                <p class="p+">ค่าใช้จ่าย</p>
+              </lx-tab>
+            </lx-tabs>
+            <!-- end tabs -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

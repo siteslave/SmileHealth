@@ -91,12 +91,12 @@
             <td>
               <i class="icon icon--m icon--grey icon--flat mdi mdi-file"></i>
             </td>
-            <td width="70%">{{f}}</td>
+            <td width="70%">{{f.name}}</td>
             <td width="30%">
-              <button class="btn btn--m btn--grey btn--icon" lx-ripple>
+              <button class="btn btn--m btn--grey btn--icon" lx-ripple ng-click="removeZipFile(f.path, $index)">
                 <i class="icon icon--m icon--flat mdi mdi-close-circle"></i>
               </button>
-              <button class="btn btn--m btn--green btn--icon" lx-ripple>
+              <button class="btn btn--m btn--green btn--icon" lx-ripple ng-click="upload(f.path, $index)">
                 <i class="icon icon--m icon--flat mdi mdi-arrow-up-bold-circle"></i>
               </button>
             </td>

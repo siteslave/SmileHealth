@@ -5,7 +5,7 @@
 
       // Check extract dir
       var homeDir = ipc.sendSync('get-home-dir');
-      console.log(homeDir);
+      //console.log(homeDir);
       var exportDir = path.join(homeDir, 'export');
       var zipDir = path.join(homeDir, 'zip');
 
@@ -22,7 +22,12 @@
       $scope.getWaitingFiles = function () {
         fs.readdir(zipDir, function (err, files) {
           if (err) return;
-          $scope.waitingFiles = files;
+          _.forEach(files, function (file) {
+            var obj = {};
+            obj.name = file;
+            obj.path = path.join(zipDir, file);
+            $scope.waitingFiles.push(obj);
+          });
         });
       };
 
@@ -55,11 +60,11 @@
 
         headers.drug = [
           'HOSPCODE', 'HN', 'SEQ', 'ICODE', 'QTY', 'PRICE',
-          'DRUG_NAME', 'UNIT', 'STDCODE', 'USAGE', 'D_UPDATED'
+          'DRUG_NAME', 'UNIT', 'STDCODE', 'USAGE_NAME', 'D_UPDATED'
         ].join('|') + '\n';
 
         headers.lab = [
-          'HOSPCODE', 'HN', 'SEQ', 'LNAME', 'LRESULT', 'LUNIT', 'D_UPDATED'
+          'HOSPCODE', 'HN', 'SEQ', 'LCODE', 'LNAME', 'LRESULT', 'LUNIT', 'D_UPDATED'
         ].join('|') + '\n';
 
         headers.diag = [
@@ -220,13 +225,14 @@
                 obj.HOSPCODE = $scope.hospcode;
                 obj.HN = v.HN;
                 obj.SEQ = v.SEQ;
+                obj.LCODE = v.LCODE;
                 obj.LNAME = v.LNAME;
                 obj.LRESULT = v.LRESULT;
                 obj.LUNIT = v.LUNIT;
                 obj.UPDATED = moment().format('YYYYMMDDHHmmss')
 
                 var str = [
-                  obj.HOSPCODE, obj.HN, obj.SEQ, obj.LNAME,
+                  obj.HOSPCODE, obj.HN, obj.SEQ, obj.LCODE, obj.LNAME,
                   obj.LRESULT, obj.LUNIT, obj.UPDATED
                 ].join('|') + '\n';
 
@@ -310,10 +316,9 @@
                 $scope.files[idx].current++;
              });
            }
-          $scope.files[idx].success = true;
+           $scope.files[idx].success = true;
            return;
           })
-
           .then(function () {
 
             var strZipFile = 'KHOS-' + $scope.hospcode + '-' + moment().format('YYYYMMDDHHmmss') + '.zip';
@@ -340,7 +345,7 @@
               if (err) {
                 console.log(err);
               } else {
-                $scope.getWaitingFiles();
+                $scope.waitingFiles.push({name: strZipFile, path: zipFile});
                 LxNotificationService.success('ส่งออกข้อมูลเสร็จเรียบร้อยแล้ว');
               }
             });
@@ -352,7 +357,66 @@
             LxProgressService.linear.hide();
           });
 
-      }
+      };// end doExport()
+
+      // Remove zip file
+      $scope.removeZipFile = function (file, idx) {
+        LxNotificationService.confirm('ยืนยันการลบ', 'คุณต้องการลบไฟล์นี้ ใช่หรือไม่?',
+        {ok: 'ใช่, ฉันต้องการลบ', cancel: 'ไม่ใช่'},
+        function (res) {
+          if (res) {
+            fse.removeSync(file);
+            $scope.waitingFiles.splice(idx, 1);
+          }
+        });
+      };
+
+      // Upload file
+      $scope.upload = function (file, idx) {
+        // Requirement
+        var request = require('request');
+        // Get configure
+        var config = ipc.sendSync('get-config');
+        // Show progress bar
+        LxProgressService.linear.show('#E91E63', '#progress');
+
+        LxNotificationService.confirm('ยืนยันการอัปโหลด', 'คุณต้องการอัปโหลดไฟล์นี้ ใช่หรือไม่?', {
+          ok: 'ใช่, ฉันต้องการอัปโหลด',
+          cancel: 'ไม่ใช่'
+        }, function (res) {
+          if (res) {
+            // Get hospital code
+            ExportServ.getHospcode()
+            .then(function (hospcode) {
+              var _hospcode = hospcode;
+              // Form data
+              var formData = {
+                hospcode: _hospcode,
+                key: config.cloud.key,
+                files: fs.createReadStream(file)
+              };
+              // Do upload file
+              request.post({
+                url: config.cloud.url + '/upload',
+                formData: formData
+              }, function (err) {
+                if (err) { // Error
+                  console.log(err);
+                  LxNotificationService.error('ไม่สามารถอัปโหลดไฟล์ได้');
+                  LxProgressService.linear.hide();
+                } else { // Success
+                  LxNotificationService.success('อัปโหลดไฟล์เสร็จเรียบร้อยแล้ว');
+                  LxProgressService.linear.hide();
+                  fse.removeSync(file);
+                  $scope.waitingFiles.splice(idx, 1);
+                }
+              });
+
+            });
+          }
+        });
+
+      };
     });
 
 })(window, window.angular);

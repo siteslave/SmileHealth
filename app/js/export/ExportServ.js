@@ -104,7 +104,7 @@
             var q = $q.defer();
             db('lab_head as lh')
               .select(
-                'lh.hn as HN', 'lh.vn as SEQ', 'li.lab_items_name as LNAME',
+                'lh.hn as HN', 'lh.vn as SEQ', 'li.lab_items_code as LCODE', 'li.lab_items_name as LNAME',
                 'lo.lab_order_result AS LRESULT',  'li.lab_items_unit as LUNIT'
               )
               .innerJoin('lab_order as lo', 'lo.lab_order_number', 'lh.lab_order_number')

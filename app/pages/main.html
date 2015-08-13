@@ -3,6 +3,7 @@
   <div flex-container="row">
     <div id="progress"></div>
   </div>
+
   <i class="icon icon--m icon--green icon--flat mdi mdi-account-multiple"></i> &nbsp;
   <span class="fs-title tc-grey">ทะเบียนผู้มารับบริการ [{{ items.length | number }}]</span>
   <div class="divider divider--dark"></div>
@@ -82,7 +83,7 @@
             <lx-dropdown-menu>
               <ul>
                 <li>
-                  <a href="#" class="dropdown-link">
+                  <a href="#/emr/{{ item.cid }}" class="dropdown-link">
                     <i class="mdi mdi-clipboard-account"></i>
                     ประวัติรับบริการ (EMR)
                   </a>
