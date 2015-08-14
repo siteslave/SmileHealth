@@ -9,6 +9,10 @@
       var config = ipc.sendSync('get-config');
 
       return {
+        getConfig: function () {
+          return config;
+        },
+        
         getConnection: function () {
           return require('knex')({
                 client: 'mysql',

@@ -37,7 +37,7 @@ angular.module('khos', [
       controller: 'MainCtrl'
     })
     .state('emr', {
-      url: '/emr/:cid',
+      url: '/emr/:cid/:hn',
       templateUrl: './pages/emr.html',
       controller: 'EmrCtrl'
     })

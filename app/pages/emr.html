@@ -7,47 +7,22 @@
   <div flex-container="row", flex-gutter="8">
     <div flex-item="3">
       <div class="card p+">
-        <i class="icon icon--m icon--grey icon--flat mdi mdi-calendar-clock"></i> &nbsp;
-        <span class="fs-title tc-grey">ประวัติการรับบริการ</span>
+        <!-- <i class="icon icon--m icon--grey icon--flat mdi mdi-calendar-clock"></i> &nbsp; -->
+        <span class="fs-title tc-grey">ประวัติรับบริการ</span>
         <div class="divider divider--dark"></div>
 
         <ul class="list mt++">
-          <li class="list-row list-row--has-separator">
+          <li class="list-row list-row--has-separator" ng-repeat="s in services">
             <div class="list-row__content">
-              <span class="display-block">12/08/2557 13:00</span>
+              <span class="display-block">{{ s.date_serv | toThaiDate }}</span>
               <span class="display-block fs-body-1 tc-black-2">
-                โรงพยาบาลมหาสารคาม (10707)
+                {{ s.hospcode }} - {{ s.hospname }}
               </span>
             </div>
             <div class="list-row__secondary">
-              <button class="btn btn--green btn--icon btn--l" lx-ripple>
+              <button class="btn btn--grey btn--icon btn--l" lx-ripple
+              ng-click="getServiceDetail(s.hospcode, s.hn, s.date_serv, s.seq)">
                 <i class="mdi mdi-monitor"></i>
-              </button>
-            </div>
-          </li>
-          <li class="list-row list-row--has-separator">
-            <div class="list-row__content">
-              <span class="display-block">12/08/2557 13:40</span>
-              <span class="display-block fs-body-1 tc-black-2">
-                โรงพยาบาลกันทรวิชัย (11053)
-              </span>
-            </div>
-            <div class="list-row__secondary">
-              <button class="btn btn--grey btn--icon btn--l" lx-ripple>
-                <i class="mdi mdi-chevron-double-right"></i>
-              </button>
-            </div>
-          </li>
-          <li class="list-row list-row--has-separator">
-            <div class="list-row__content">
-              <span class="display-block">13/08/2557 10:30</span>
-              <span class="display-block fs-body-1 tc-black-2">
-                รพ.สต.เชียงเหียน (04911)
-              </span>
-            </div>
-            <div class="list-row__secondary">
-              <button class="btn btn--grey btn--icon btn--l" lx-ripple>
-                <i class="mdi mdi-chevron-double-right"></i>
               </button>
             </div>
           </li>
@@ -60,7 +35,7 @@
         <div flex-item>
           <div class="card p+">
             <i class="icon icon--m icon--grey icon--flat mdi mdi-account-location"></i> &nbsp;
-            <span class="fs-title tc-grey">ข้อมูลทั่วไป</span>
+            <span class="fs-title tc-grey">ข้อมูลทั่วไป [HOSxP]</span>
             <div class="divider divider--dark"></div>
 
             <div flex-container="row" flex-gutter="24">
@@ -86,63 +61,35 @@
               </div>
             </div>
 
-            <div flex-container="row">
-              <div flex-item>
+            <div flex-container="row" flex-gutter="8">
+              <div flex-item="8">
                 <lx-text-field label="ที่อยู่">
                   <input type="text" ng-model="address" ng-disabled="true">
                 </lx-text-field>
               </div>
+              <div flex-item="4">
+                <lx-text-field label="ประเภทบุคคล">
+                  <input type="text" ng-model="typearea" ng-disabled="true">
+                </lx-text-field>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div flex-container="row" style="padding-bottom: 10px;">
+      <!-- <div flex-container="row" style="padding-bottom: 10px;" ng-show="isShowService">
         <div flex-item>
           <div class="card p+">
             <i class="icon icon--m icon--grey icon--flat mdi mdi-comment-plus-outline"></i> &nbsp;
-            <span class="fs-title tc-grey">ข้อมูลการรับบริการ</span>
+            <span class="fs-title tc-grey">ข้อมูลการรับบริการ [CLOUD]</span>
             <div class="divider divider--dark"></div>
 
             <br>
-            <div flex-container="row" flex-gutter="8">
-              <div flex-item="3">
-                <lx-text-field label="รหัส">
-                  <input type="text" ng-model="hospcode" ng-disabled="true">
-                </lx-text-field>
-              </div>
-              <div flex-item="9">
-                <lx-text-field label="ชื่อหน่วยบริการ">
-                  <input type="text" ng-model="hospname" ng-disabled="true">
-                </lx-text-field>
-              </div>
-            </div>
-            <div flex-container="row" flex-gutter="8">
-              <div flex-item="6">
-                <lx-text-field label="มาด้วยอาการ">
-                  <input type="text" ng-model="cc" ng-disabled="true">
-                </lx-text-field>
-              </div>
-              <div flex-item="2">
-                <lx-text-field label="น้ำหนัก(กก.)">
-                  <input type="text" ng-model="weight" ng-disabled="true">
-                </lx-text-field>
-              </div>
-              <div flex-item="2">
-                <lx-text-field label="ส่วนสูง(ซม.)">
-                  <input type="text" ng-model="height" ng-disabled="true">
-                </lx-text-field>
-              </div>
-              <div flex-item="2">
-                <lx-text-field label="ความดัน">
-                  <input type="text" ng-model="bp" ng-disabled="true">
-                </lx-text-field>
-              </div>
-            </div>
+
           </div>
         </div>
-      </div>
+      </div> -->
 
-      <div flex-container="row">
+      <div flex-container="row" ng-show="isShowService">
         <div flex-item class="card p+">
           <br>
           <i class="icon icon--m icon--grey icon--flat mdi mdi-monitor"></i> &nbsp;
@@ -151,6 +98,42 @@
 
           <!-- tabs -->
           <lx-tabs indicator="indigo-500" layout="inline">
+            <lx-tab heading="ข้อมูลรับบริการ">
+              <div flex-container="row" flex-gutter="8">
+                <div flex-item="3">
+                  <lx-text-field label="รหัส">
+                    <input type="text" ng-model="hospcode" ng-disabled="true">
+                  </lx-text-field>
+                </div>
+                <div flex-item="9">
+                  <lx-text-field label="ชื่อหน่วยบริการ">
+                    <input type="text" ng-model="hospname" ng-disabled="true">
+                  </lx-text-field>
+                </div>
+              </div>
+              <div flex-container="row" flex-gutter="8">
+                <div flex-item="6">
+                  <lx-text-field label="มาด้วยอาการ">
+                    <input type="text" ng-model="cc" ng-disabled="true">
+                  </lx-text-field>
+                </div>
+                <div flex-item="2">
+                  <lx-text-field label="น้ำหนัก(กก.)">
+                    <input type="text" ng-model="weight" ng-disabled="true">
+                  </lx-text-field>
+                </div>
+                <div flex-item="2">
+                  <lx-text-field label="ส่วนสูง(ซม.)">
+                    <input type="text" ng-model="height" ng-disabled="true">
+                  </lx-text-field>
+                </div>
+                <div flex-item="2">
+                  <lx-text-field label="ความดัน">
+                    <input type="text" ng-model="bp" ng-disabled="true">
+                  </lx-text-field>
+                </div>
+              </div>
+            </lx-tab>
             <lx-tab heading="การวินิจฉัย">
               <table class="data-table">
                 <thead>
@@ -162,30 +145,118 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr ng-repeat="d in diags">
                     <td>
                       <i class="icon icon--m icon--grey icon--flat mdi mdi-chevron-right"></i>
                     </td>
-                    <td width="10%">I10</td>
-                    <td width="60%">Essential (primary) hypertension</td>
-                    <td width="30%">
-                      1 - Principle diagnosis
-                    </td>
+                    <td width="10%">{{ d.diag_code }}</td>
+                    <td width="60%">{{ d.diag_name }}</td>
+                    <td width="30%">{{ d.diag_type }}</td>
                   </tr>
                 </tbody>
               </table>
             </lx-tab>
             <lx-tab heading="หัตถการ">
-              <p class="p+">หัตถการ</p>
+              <table class="data-table">
+                <thead>
+                  <tr class="data-table__selectable-row">
+                    <th></th>
+                    <th width="10%">รหัส</th>
+                    <th width="60%">รายการ</th>
+                    <th width="30%">ราคา</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="p in proced">
+                    <td>
+                      <i class="icon icon--m icon--grey icon--flat mdi mdi-chevron-right"></i>
+                    </td>
+                    <td width="10%">{{ p.proced_code }}</td>
+                    <td width="60%">{{ p.proced_name }}</td>
+                    <td width="30%">{{ p.price | number }}</td>
+                  </tr>
+                </tbody>
+              </table>
             </lx-tab>
             <lx-tab heading="เวชภัณฑ์">
-              <p class="p+">เวชภัณฑ์</p>
+              <table class="data-table">
+                <thead>
+                  <tr class="data-table__selectable-row">
+                    <th></th>
+                    <!-- <th width="20%">รหัส</th> -->
+                    <th width="40%">รายการ</th>
+                    <th width="10%">หน่วย</th>
+                    <th width="10%">ราคา</th>
+                    <th width="10%">จำนวน</th>
+                    <th width="30%">วิธีใช้</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="d in drug">
+                    <td>
+                      <i class="icon icon--m icon--grey icon--flat mdi mdi-chevron-right"></i>
+                    </td>
+                    <!-- <td width="20%">{{ d.stdcode }}</td> -->
+                    <td width="40%">{{ d.drug_name }}</td>
+                    <td width="10%">{{ d.unit }}</td>
+                    <td width="10%">{{ d.price | number }}</td>
+                    <td width="10%">{{ d.qty | number }}</td>
+                    <td width="30%">{{ d.usage_name }}</td>
+                  </tr>
+                </tbody>
+              </table>
             </lx-tab>
             <lx-tab heading="Lab">
-              <p class="p+">LAB</p>
+              <table class="data-table">
+                <thead>
+                  <tr class="data-table__selectable-row">
+                    <th></th>
+                    <!-- <th width="20%">รหัส</th> -->
+                    <th width="60%">รายการ</th>
+                    <th width="20%">ผล</th>
+                    <th width="20%">หน่วย</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-if="lab.length == 0">
+                    <td colspan="4"><span class="fs-subhead display-block tc-grey-500">ไม่พบรายการ</span></td>
+                  </tr>
+                  <tr ng-if="lab.length > 0" ng-repeat="l in lab">
+                    <td>
+                      <i class="icon icon--m icon--grey icon--flat mdi mdi-chevron-right"></i>
+                    </td>
+                    <td width="60%">{{ l.lname }}</td>
+                    <td width="20%">{{ l.lresult }}</td>
+                    <td width="20%">{{ l.lunit }}</td>
+                  </tr>
+                </tbody>
+              </table>
             </lx-tab>
             <lx-tab heading="ค่าใช้จ่าย">
-              <p class="p+">ค่าใช้จ่าย</p>
+              <table class="data-table">
+                <thead>
+                  <tr class="data-table__selectable-row">
+                    <th></th>
+                    <!-- <th width="20%">รหัส</th> -->
+                    <th width="60%">รายการ</th>
+                    <th width="20%">จำนวน</th>
+                    <th width="20%">ราคา</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-if="charge.length == 0">
+                    <td colspan="4"><span class="fs-subhead display-block tc-grey-500">ไม่พบรายการ</span></td>
+                  </tr>
+                  <tr ng-if="charge.length > 0" ng-repeat="c in charge">
+                    <td>
+                      <i class="icon icon--m icon--grey icon--flat mdi mdi-chevron-right"></i>
+                    </td>
+                    <td width="60%">{{ c.charge_name }}</td>
+                    <td width="20%">{{ c.qty | number }}</td>
+                    <td width="20%">{{ c.price | number }}</td>
+                  </tr>
+                </tbody>
+              </table>
             </lx-tab>
           </lx-tabs>
           <!-- end tabs -->
@@ -196,3 +267,5 @@
   </div>
 
 </div>
+
+<br>

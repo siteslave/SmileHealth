@@ -65,7 +65,8 @@ app.on('ready', function() {
             },
             cloud: {
               url: 'http://localhost:8080',
-              key: '1234567890'
+              key: '1234567890',
+              hospcode: '00000'
             }
           };
           // Write config file with default configure

@@ -22,8 +22,10 @@
                     LxNotificationService.error('กรุณาระบุที่อยู่ของ Cloud Server');
                 } else if (!$scope.config.cloud.key) {
                     LxNotificationService.error('กรุณาระบุ KEY สำหรับเชื่อมต่อ Cloud Server');
+                } else if (!$scope.config.cloud.hospcode) {
+                    LxNotificationService.error('กรุณาระบุ รหัสสถานบริการ สำหรับเชื่อมต่อ Cloud Server');
                 } else {
-                  
+
                   SettingServ.saveConfig($scope.config) // Save setting
                     .then(function () { // Success
                       LxNotificationService.success('บันทึกการกำหนดค่าเสร็จเรียบร้อยแล้ว');
