@@ -96,7 +96,7 @@
           </div>
         </div>
       </div>
-      <div flex-container="row">
+      <div flex-container="row" style="padding-bottom: 10px;">
         <div flex-item>
           <div class="card p+">
             <i class="icon icon--m icon--grey icon--flat mdi mdi-comment-plus-outline"></i> &nbsp;
@@ -138,54 +138,60 @@
                 </lx-text-field>
               </div>
             </div>
-            <br>
-            <i class="icon icon--m icon--grey icon--flat mdi mdi-monitor"></i> &nbsp;
-            <span class="fs-title tc-grey">กิจกรรมการบริการ</span>
-            <div class="divider divider--dark"></div>
-
-            <!-- tabs -->
-            <lx-tabs indicator="indigo-500" layout="inline">
-              <lx-tab heading="การวินิจฉัย">
-                <table class="data-table">
-                  <thead>
-                    <tr class="data-table__selectable-row">
-                      <th></th>
-                      <th width="10%">รหัส</th>
-                      <th width="60%">รายการ</th>
-                      <th width="30%">Type</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <i class="icon icon--m icon--grey icon--flat mdi mdi-chevron-right"></i>
-                      </td>
-                      <td width="10%">I10</td>
-                      <td width="60%">Essential (primary) hypertension</td>
-                      <td width="30%">
-                        1 - Principle diagnosis
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </lx-tab>
-              <lx-tab heading="หัตถการ">
-                <p class="p+">หัตถการ</p>
-              </lx-tab>
-              <lx-tab heading="เวชภัณฑ์">
-                <p class="p+">เวชภัณฑ์</p>
-              </lx-tab>
-              <lx-tab heading="Lab">
-                <p class="p+">LAB</p>
-              </lx-tab>
-              <lx-tab heading="ค่าใช้จ่าย">
-                <p class="p+">ค่าใช้จ่าย</p>
-              </lx-tab>
-            </lx-tabs>
-            <!-- end tabs -->
           </div>
         </div>
       </div>
+
+      <div flex-container="row">
+        <div flex-item class="card p+">
+          <br>
+          <i class="icon icon--m icon--grey icon--flat mdi mdi-monitor"></i> &nbsp;
+          <span class="fs-title tc-grey">กิจกรรมการบริการ</span>
+          <div class="divider divider--dark"></div>
+
+          <!-- tabs -->
+          <lx-tabs indicator="indigo-500" layout="inline">
+            <lx-tab heading="การวินิจฉัย">
+              <table class="data-table">
+                <thead>
+                  <tr class="data-table__selectable-row">
+                    <th></th>
+                    <th width="10%">รหัส</th>
+                    <th width="60%">รายการ</th>
+                    <th width="30%">Type</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <i class="icon icon--m icon--grey icon--flat mdi mdi-chevron-right"></i>
+                    </td>
+                    <td width="10%">I10</td>
+                    <td width="60%">Essential (primary) hypertension</td>
+                    <td width="30%">
+                      1 - Principle diagnosis
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </lx-tab>
+            <lx-tab heading="หัตถการ">
+              <p class="p+">หัตถการ</p>
+            </lx-tab>
+            <lx-tab heading="เวชภัณฑ์">
+              <p class="p+">เวชภัณฑ์</p>
+            </lx-tab>
+            <lx-tab heading="Lab">
+              <p class="p+">LAB</p>
+            </lx-tab>
+            <lx-tab heading="ค่าใช้จ่าย">
+              <p class="p+">ค่าใช้จ่าย</p>
+            </lx-tab>
+          </lx-tabs>
+          <!-- end tabs -->
+        </div>
+      </div>
+
     </div>
   </div>
 

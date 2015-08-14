@@ -36,7 +36,7 @@
 
       $scope.doExport = function () {
         $scope.isSuccess = false;
-        LxProgressService.linear.show('#E91E63', '#progress');
+        LxProgressService.circular.show('#E91E63', '#progress');
         // Default hospcode
         $scope.hospcode = '00000';
         $scope.hn = [];
@@ -326,7 +326,7 @@
 
             //return ExportServ.createZip(files, zipFile);
 
-            LxProgressService.linear.hide();
+            LxProgressService.circular.hide();
             $scope.isSuccess = true;
 
             var JSZip = require('jszip');
@@ -354,7 +354,7 @@
             console.log(err);
             $scope.isSuccess = true;
             LxNotificationService.error('เกิดข้อผิดพลาด กรุณาดู Log');
-            LxProgressService.linear.hide();
+            LxProgressService.circular.hide();
           });
 
       };// end doExport()
@@ -377,14 +377,14 @@
         var request = require('request');
         // Get configure
         var config = ipc.sendSync('get-config');
-        // Show progress bar
-        LxProgressService.linear.show('#E91E63', '#progress');
 
         LxNotificationService.confirm('ยืนยันการอัปโหลด', 'คุณต้องการอัปโหลดไฟล์นี้ ใช่หรือไม่?', {
           ok: 'ใช่, ฉันต้องการอัปโหลด',
           cancel: 'ไม่ใช่'
         }, function (res) {
           if (res) {
+            // Show progress bar
+            LxProgressService.circular.show('#E91E63', '#progress');
             // Get hospital code
             ExportServ.getHospcode()
             .then(function (hospcode) {
@@ -403,10 +403,10 @@
                 if (err) { // Error
                   console.log(err);
                   LxNotificationService.error('ไม่สามารถอัปโหลดไฟล์ได้');
-                  LxProgressService.linear.hide();
+                  LxProgressService.circular.hide();
                 } else { // Success
                   LxNotificationService.success('อัปโหลดไฟล์เสร็จเรียบร้อยแล้ว');
-                  LxProgressService.linear.hide();
+                  LxProgressService.circular.hide();
                   fse.removeSync(file);
                   $scope.waitingFiles.splice(idx, 1);
                 }
